@@ -13,12 +13,13 @@ import java.util.*;
 /**
  * Created by mariusg on 2017.03.19.
  */
+@Repository
 public class InMemoryMessengerRepository implements MessengerRepository {
-
+	@Autowired
     private final List<Contact> contacts = new LinkedList<>();
-
+	@Autowired
     private final Map<Contact, List<Message>> contactsToMessagesMap = new HashMap<>();
-
+	@Autowired
     private final SequenceGenerator sequenceGenerator;
 
     @Autowired

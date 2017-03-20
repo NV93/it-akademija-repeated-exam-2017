@@ -1,12 +1,17 @@
 package lt.itakademija.model.command;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.stereotype.Component;
+
 /**
  * Created by mariusg on 2017.03.19.
  */
+@Component
 public final class CreateContact {
-
+	@NotNull
     private String username;
-
+	@NotNull
     private String name;
 
     public String getUsername() {

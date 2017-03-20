@@ -10,45 +10,61 @@ import lt.itakademija.repository.MessengerRepository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by mariusg on 2017.03.19.
  */
+@RestController
+@RequestMapping(value="webapi/messenger")
 public class MessengerServiceController {
-
+	@Autowired
     private final MessengerRepository repository;
 
     public MessengerServiceController(MessengerRepository repository) {
         this.repository = repository;
     }
-
+    @RequestMapping(method=RequestMethod.POST,path="/webapi/messenger/contacts")
+    @ResponseStatus(value=HttpStatus.CREATED)
     public Id createContact(CreateContact createContact) {
-        throw new UnsupportedOperationException("not implemented");
+         repository.createContact(createContact);
+         return null;
     }
-
+    @RequestMapping(method=RequestMethod.GET, path="/webapi/messenger/contacts")
     public List<Contact> getContacts() {
-        throw new UnsupportedOperationException("not implemented");
+        return repository.getContacts();
     }
-
+    @RequestMapping(method=RequestMethod.GET, path="/webapi/messenger/contacts")
     public Contact getContact(Long contactId) {
-        throw new UnsupportedOperationException("not implemented");
+        return repository.getContact(contactId);
     }
-
+    @RequestMapping(method=RequestMethod.PUT, path="/webapi/messenger/contacts/{contactId}")
+    @ResponseStatus(value=HttpStatus.OK)
     public void updateContact(Long contactId,
                               UpdateContact updateContact) {
-        throw new UnsupportedOperationException("not implemented");
+        repository.updateContact(contactId, updateContact);
     }
-
+    @RequestMapping(method=RequestMethod.DELETE, path="/webapi/messenger/contacts/{contactId}")
+    @ResponseStatus(value=HttpStatus.OK)
     public void deleteContact(Long contactId) {
-        throw new UnsupportedOperationException("not implemented");
+        repository.deleteContact(contactId);
     }
-
+    @RequestMapping(method=RequestMethod.POST)
+    @ResponseStatus(value=HttpStatus.CREATED)
     public Id createMessage(Long contactId,
                             CreateMessage createMessage) {
-        throw new UnsupportedOperationException("not implemented");
+        repository.createMessage(contactId, createMessage);
+        return null;
     }
-
+    @RequestMapping(method=RequestMethod.GET, path="/webapi/messenger/messages/{contactId}")
+    @ResponseStatus(value=HttpStatus.OK)
     public List<Message> getMessages(Long contactId) {
-        throw new UnsupportedOperationException("not implemented");
+        return repository.getMessages(contactId);
     }
 
 }
